@@ -175,7 +175,9 @@ function tallyScore()
 function reset()
 {
     playerScore = 0
+    playerScoreCounter.textContent=`Player Score: ${playerScore}`;
     computerScore = 0
+    computerScoreCounter.textContent = `PC Score: ${computerScore}`;
     round = 1
     roundCounter.textContent = `Round: ${round}`
     commentary.textContent = "Pick an option to start"
