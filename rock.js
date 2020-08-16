@@ -63,8 +63,10 @@ function game()
         }
         if(round > 5)
         {
+            roundCounter.textContent = `End!`
             tallyScore()
             reset()
+            
         }
     },gameSpeed);
     
