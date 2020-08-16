@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+*
+{
+    background-color: #552581;
+    font-family: 'Roboto Condensed', sans-serif;
+    user-select: none;
+}
+
+h1,h2
+{
+    color: rgb(101, 235, 212);
+}
+
+.commentary
+{
+    transition: 1s;
+}
+
+.container
+{
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+}
+.controls
+{
+    width: 150px;
+    display: inline-block;
+    position: relative; 
+    transition: .5s;
+}
+.computer
+{
+    left:20%;
+}
+.player
+{
+    right:20%;
+}
+.inactive
+{
+    opacity: 50%;
+}
+
+
+.choiceIcon
+{
+    width: 80px;
+    height: 80px;
+    
+}
+.button
+{
+    padding: 20px;
+    margin-bottom: 40px;
+    border-radius: 4px;
+    background-color: #b8f2e6d0;
+    transition: .1s;
+    font-size: 0;
+    
+}
+.button img
+{
+    background-color: transparent;
+    
+    
+
+}
+.button:hover
+{
+    transform: scale(1.02);
+    background-color: #b8f2e6;
+    box-shadow: 9px 9px 52px -29px rgba(0,0,0,1);
+}
+.button:active
+{
+    background-color: #85a8a1;
+}
+
+.chosen, .chosen:hover
+{
+    background-color: rgb(95, 221, 45);
+}
+.chosen
+{
+    animation-name: bounce;
+    animation-duration: .25s;
+    animation-iteration-count: 1;
+}
+
+
+
+.lose,.lose:hover
+{
+    background-color: rgba(231, 58, 58, 0.904);
+}
+
+@keyframes bounce
+{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.2);}
+    100%{transform: scale(1);}
+}

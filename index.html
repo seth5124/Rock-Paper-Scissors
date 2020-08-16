@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+
+
+<div class="container">
+    <div class='textDisplay'>
+        <h1>Rock, Paper, Scissors</h1>
+        <h2 id='commentary'>Pick an option to start</h2>
+    </div>
+    <div class="player controls">
+        <h2 class='score' id='playerScore'>Player Score: 0</h2>
+        <div class="button" id="playerRock">rock<img class='choiceIcon' src='https://icon-library.com/images/176598.svg.svg'>
+        </div>
+        <div class="button" id="playerPaper"> paper<img class='choiceIcon' src="paper.png">
+        </div>
+        <div class="button" id="playerScissors">scissors<img class='choiceIcon' src="scissors.png">
+        </div>
+    </div>
+    
+    
+    <div class="computer controls inactive" id='computerControls'>
+        <h2 class='score' id='computerScore'>PC Score: 0</h2>
+        <div class="button" id="computerRock">rock<img class='choiceIcon' src='https://icon-library.com/images/176598.svg.svg'>
+        </div>
+        <div class="button" id="computerPaper">paper<img class='choiceIcon' src="paper.png">
+
+        </div>
+        <div class="button" id="computerScissors">scissors<img class='choiceIcon' src="scissors.png">
+
+        </div>
+    </div>
+    <div class="roundCounter" ><h1 id='roundCounter'>Round: 1</h1></div>
+</div>
+
+
+
+
+    <script src="rock.js"></script>
+</body>
+</html>
+
