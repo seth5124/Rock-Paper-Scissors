@@ -4,11 +4,15 @@
 const playerRockButton = document.getElementById('playerRock');
 const playerPaperButton = document.getElementById('playerPaper');
 const playerScissorsButton = document.getElementById('playerScissors');
+const playerLizardButton = document.getElementById('playerLizard');
+const playerSpockButton = document.getElementById('playerSpock');
 const playerScoreCounter = document.getElementById('playerScore');
 
 const computerRockButton = document.getElementById('computerRock');
 const computerPaperButton = document.getElementById('computerPaper');
 const computerScissorsButton = document.getElementById('computerScissors');
+const computerLizardButton = document.getElementById('computerLizard');
+const computerSpockButton = document.getElementById('computerSpock');
 const computerScoreCounter = document.getElementById('computerScore');
 
 const roundCounter = document.getElementById('roundCounter');
@@ -17,17 +21,25 @@ const commentary = document.getElementById('commentary');
 const computerControls = document.getElementById('computerControls')
 
 //Defining Button lists
-const playerButtons = [playerRockButton,playerPaperButton,playerScissorsButton];
-const computerButtons = [computerRockButton,computerPaperButton,computerScissorsButton];
+const playerButtons = [playerRockButton,playerPaperButton,playerScissorsButton,playerLizardButton,playerSpockButton];
+const computerButtons = [computerRockButton,computerPaperButton,computerScissorsButton,computerLizardButton,computerSpockButton];
 
+class outcome{
+    constructor(choice,beats,actions)
+    {
+        this.choice = choice;
+        this.beats = beats;
+        this.actions = actions;
+    }
+}
 
-
-
-//Maps winning outcomes 
-const outcomes = new Map();
-outcomes.set('rock', 'scissors');
-outcomes.set('paper','rock');
-outcomes.set('scissors', 'paper');
+var outcomes = [
+    new outcome('Rock',['scissors','lizard'], ['crushes','crushes']),
+    new outcome('Paper',['rock','spock'],['covers','disproves']),
+    new outcome('Scissors',['paper','lizard'],['cuts','decapitates']),
+    new outcome('Lizard',['paper','spock'],['eats','poisons']),
+    new outcome('Spock',['rock','scissors'],['vaporizes','smashes']),
+]
 
 var round = 1;
 var playerScore = 0;
@@ -39,10 +51,7 @@ playerButtons.forEach(function(button){
 
     button.addEventListener('click', () =>{
         chooseButton(playerButtons,button);
-        
         game()
-
-
     })
 });
 
@@ -97,41 +106,55 @@ function chooseButton(sideButtons,button)
         button.offsetWidth = button.offsetWidth; //not sure what this does but it lets the animation restart
     })
     button.classList.add('chosen');
-
-
 }
 
-//Checks outcome map for the specific combination of player and PC choice
-// if the key corresponding to the player's choice has a value of the PC's choice, the player wins
+
 //otherwise the PC wins (save for ties) 
 function playRound(player,computer)
 {
+    var playerChoice 
+    var computerChoice 
     
-    //removes the whitespace and \n from the HTML textcontent
-    var playerChoice = player.textContent.trim().toLowerCase().replace('\n','')  
-    var computerChoice = computer.textContent.toLowerCase().trim().replace('\n','')
+    
+    for(let i = 0; i < outcomes.length; i++)
+    {
+        
+        if(outcomes[i].choice.toLowerCase() == player.textContent.toLowerCase().trim().replace('\n','')) { playerChoice=outcomes[i] }
+        
+        if(outcomes[i].choice.toLowerCase() == computer.textContent.toLowerCase().trim().replace('\n','')) { computerChoice=outcomes[i] }    
+    }
+    
 
     //checks for ties
-    if(playerChoice == computerChoice){  
-        commentary.textContent = 'Tie!'
+    if(playerChoice.choice == computerChoice.choice){  
+        setTimeout(()=>{
+            commentary.textContent = 'Tie!'
+        },gameSpeed) 
+        
         
     }
-    //gets the value of the player's choice key in the outcomes map, and checks if the PC chose the option that loses
-    else if(outcomes.get(playerChoice) == computerChoice){  
-        commentary.textContent = 'You Win!';
+
+    else if(playerChoice.beats.includes(computerChoice.choice.toLowerCase())){  
+        
         playerScore++;
         playerScoreCounter.textContent=`Player Score: ${playerScore}`;
         computer.classList.replace('chosen','lose');
         chooseButton(playerButtons,player);
+        setTimeout(()=>{
+            commentary.textContent = (playerChoice.choice + " " + playerChoice.actions[playerChoice.beats.indexOf(computerChoice.choice.toLowerCase())]) + " " + computerChoice.choice + "!";
+        },gameSpeed) 
         
     }
     //Defaults to the PC winning
     else{
-        commentary.textContent = 'You Lose!';
+        
         computerScore++;
         computerScoreCounter.textContent = `PC Score: ${computerScore}`;
         player.classList.replace('chosen','lose');
         chooseButton(computerButtons,computer);
+        setTimeout(()=>{
+            commentary.textContent = (computerChoice.choice + " " + computerChoice.actions[computerChoice.beats.indexOf(playerChoice.choice.toLowerCase())]) + " " + playerChoice.choice + "!";
+        },gameSpeed) 
         
     }
 
@@ -142,7 +165,7 @@ function playRound(player,computer)
 //Gets the PC's choice from a random number
 function computerPlay()
 {
-    let computerChoiceCase = Math.floor((Math.random()*3)) + 1;
+    let computerChoiceCase = Math.floor((Math.random()*5)) + 1;
     switch(computerChoiceCase)
     {
         case 1:
@@ -154,6 +177,12 @@ function computerPlay()
         case 3:
             chooseButton(computerButtons,computerScissorsButton);
             return 'scissors';
+        case 4:
+            chooseButton(computerButtons, computerLizardButton);
+            return 'lizard';
+        case 5:
+            chooseButton(computerButtons, computerSpockButton);
+            return 'spock';
     }
 }
 
@@ -194,3 +223,4 @@ function reset()
 
     })
 }
+
